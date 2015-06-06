@@ -1,17 +1,32 @@
-var metas = document.getElementsByTagName('meta');
-var i;
-if (navigator.userAgent.match(/iPhone/i)) {
-  for (i=0; i<metas.length; i++) {
-    if (metas[i].name == "viewport") {
-      metas[i].content = "width=device-width, minimum-scale=1.0, maximum-scale=1.0";
-    }
-  }
-  document.addEventListener("gesturestart", gestureStart, false);
+// Image switcher code
+var myImage = document.querySelector('img');
+
+myImage.onclick = function() {
+	var mySrc = myImage.getAttribute('src');
+	if(mySrc === 'images/firefox-icon.png') {
+      myImage.setAttribute ('src','images/firefox2.png');
+	} else {
+	  myImage.setAttribute ('src','images/firefox-icon.png');
+	}
 }
-function gestureStart() {
-  for (i=0; i<metas.length; i++) {
-    if (metas[i].name == "viewport") {
-      metas[i].content = "width=device-width, minimum-scale=0.25, maximum-scale=1.6";
-    }
-  }
+
+// Personalized welcome message code
+var myButton = document.querySelector('button');
+var myHeading = document.querySelector('h1');
+
+function setUserName() {
+  var myName = prompt('Please enter your name.');
+  localStorage.setItem('name', myName);
+  myHeading.innerHTML = 'Mozilla is cool, ' + myName;
+}
+
+if(!localStorage.getItem('name')) {
+  setUserName();
+} else {
+  var storedName = localStorage.getItem('name');
+  myHeading.innerHTML = 'Mozilla is cool, ' + storedName;
+}
+
+myButton.onclick = function() {
+  setUserName();
 }
